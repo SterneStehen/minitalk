@@ -9,9 +9,9 @@ void send_char(pid_t pid, char c)
     while (bit >= 0)
     {
         if (c & (1 << bit))
-            kill(pid, SIGUSR2);
+            kill(pid, SIGUSR2);//1
         else
-            kill(pid, SIGUSR1);
+            kill(pid, SIGUSR1);//0
         usleep(100);
         bit--;
     }
