@@ -15,7 +15,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <<signal.h>
+#include <signal.h>
+#include "libft/libft.h"
 
 void send_char(pid_t pid, char c)
 {
@@ -25,9 +26,9 @@ void send_char(pid_t pid, char c)
 	while (bit >= 0)
 	{
 		if(c & (1<<bit--))
-			kill(pid, SIGUSR1);
+			kill(pid, SIGUSR2);//1
 		else
-			kill(pid, SIGUSR2);
+			kill(pid, SIGUSR1);//0
 		usleep(100);
 	}
 		
@@ -46,9 +47,11 @@ int main(int ac, char *av[])
 {
 	if	(ac != 3)
 	{
-		printf("error arguments");
+		write(2, "Usage: ./client <PID> <message>\n", 32);
+		return (1);
 	}
 	pid_t pid;
 	pid = atoi(av[1]);
 	send_sring(pid, av[2]);
+	return (0);
 }
